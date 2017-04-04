@@ -89,11 +89,11 @@
     </inertial>
 
    </link>
-  <gazebo reference="wheel1">
+   <gazebo reference="wheel1">
      <material>Gazebo/Black</material>
-  </gazebo>
+   </gazebo>
 
-     <link name="wheel2">
+   <link name="wheel2">
      <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -118,9 +118,9 @@
     </inertial>
 
    </link>
-  <gazebo reference="wheel2">
+   <gazebo reference="wheel2">
      <material>Gazebo/Black</material>
-  </gazebo>
+   </gazebo>
 
    <joint name="centre_axel_joint" type="fixed">
      <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/4}"/>
@@ -129,17 +129,20 @@
      <axis xyz="0 1 0"/>
    </joint>
 
-   <joint name="wheel1_joint" type="fixed">
+   <joint name="wheel1_joint" type="continuous">
      <origin xyz="0 0 .5" rpy="0 0 0"/>
      <parent link="additional_axel"/>
      <child link="wheel1"/>
-     <axis xyz="0 1 0"/>
+     <axis xyz="0 0 1"/>
+     <dynamics damping="0"/>
    </joint>
-   <joint name="wheel2_joint" type="fixed">
+
+   <joint name="wheel2_joint" type="continuous">
      <origin xyz="0 0 -0.5" rpy="0 0 0"/>
      <parent link="additional_axel"/>
      <child link="wheel2"/>
-     <axis xyz="0 1 0"/>
+     <axis xyz="0 0 1"/>
+     <dynamics damping="0"/>
    </joint>
 
 
