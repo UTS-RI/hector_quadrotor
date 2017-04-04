@@ -7,6 +7,11 @@
 
   <!-- Main quadrotor link -->
   <xacro:macro name="quadrotor_base_macro">
+
+    <material name="Cyan">
+      <color rgba="0 1.0 1.0 .5"/>
+    </material>
+    
     <link name="base_link">
       <inertial>
         <mass value="1.477" />
@@ -28,6 +33,115 @@
         </geometry>
       </collision>
     </link>
+   
+   <link name="additional_axel">
+     <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <cylinder radius=".01" length="1"/>
+        </geometry>
+        <material name="Cyan"/>
+     </visual>
+
+     <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <cylinder radius=".01" length="1"/>
+        </geometry>
+     </collision>
+     <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+
+   </link>
+  <gazebo reference="additional_axel">
+     <material>Gazebo/White</material>
+  </gazebo>
+
+
+     <link name="wheel1">
+     <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <cylinder radius=".5" length=".05"/>
+        </geometry>
+        <material name="Cyan"/>
+     </visual>
+
+     <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <cylinder radius=".5" length=".05"/>
+        </geometry>
+     </collision>
+     <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+
+   </link>
+  <gazebo reference="wheel1">
+     <material>Gazebo/Black</material>
+  </gazebo>
+
+     <link name="wheel2">
+     <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <cylinder radius=".5" length=".05"/>
+        </geometry>
+        <material name="Cyan"/>
+     </visual>
+
+     <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <cylinder radius=".5" length=".05"/>
+        </geometry>
+     </collision>
+     <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+
+   </link>
+  <gazebo reference="wheel2">
+     <material>Gazebo/Black</material>
+  </gazebo>
+
+   <joint name="centre_axel_joint" type="fixed">
+     <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/4}"/>
+     <parent link="base_link"/>
+     <child link="additional_axel"/>
+     <axis xyz="0 1 0"/>
+   </joint>
+
+   <joint name="wheel1_joint" type="fixed">
+     <origin xyz="0 0 .5" rpy="0 0 0"/>
+     <parent link="additional_axel"/>
+     <child link="wheel1"/>
+     <axis xyz="0 1 0"/>
+   </joint>
+   <joint name="wheel2_joint" type="fixed">
+     <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+     <parent link="additional_axel"/>
+     <child link="wheel2"/>
+     <axis xyz="0 1 0"/>
+   </joint>
+
 
     <!-- Sonar height sensor -->
     <xacro:sonar_sensor name="sonar" parent="base_link" ros_topic="sonar_height" update_rate="10" min_range="0.03" max_range="3.0" field_of_view="${40*pi/180}" ray_count="3">
