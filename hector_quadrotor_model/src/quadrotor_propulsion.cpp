@@ -121,6 +121,32 @@ QuadrotorPropulsion::~QuadrotorPropulsion()
 void quadrotorPropulsion(const real_T xin[4], const real_T uin[10], const
   PropulsionParameters parameter, real_T dt, real_T y[14], real_T xpred[4])
 {
+
+#if 0
+  std::cout << "Input params" << std::endl << std::flush;
+  std::cout << "xin: " << std::endl << std::flush;
+  for(unsigned int k=0; k< 4;k++)
+  {
+    std::cout << xin[k] << " ";
+  }
+  std::cout << "\n uin: " << std::endl << std::flush;
+  for(unsigned int k=0; k< 10;k++)
+  {
+    std::cout << uin[k] << " ";
+  }
+  std::cout << "\n y: " << std::endl << std::flush;
+  for(unsigned int k=0; k< 14;k++)
+  {
+    std::cout << y[k] << " ";
+  }
+  std::cout << "\n xpred: " << std::endl << std::flush;
+  for(unsigned int k=0; k< 4;k++)
+  {
+    std::cout << xpred[k] << " ";
+  }
+  std::cout << "\n dt: " << dt << std::endl << std::flush;
+#endif
+
   real_T v_1[4];
   int32_T i;
   real_T F_m[4];
@@ -226,12 +252,19 @@ void quadrotorPropulsion(const real_T xin[4], const real_T uin[10], const
   /*  motor speeds (rad/s) */
   for (i = 0; i < 4; i++) {
     y[i + 6] = xpred[i];
+    // y[i + 6] = 0;
   }
 
   /*  motor current (A) */
   for (i = 0; i < 4; i++) {
     y[i + 10] = I[i];
   }
+#if 0
+  for (i=0; i<14; i++) {
+    std::cout << (float)(y[i]) << "," ;
+  }
+  std::cout << std::endl;
+#endif
 
   /*  M_e(1:4) / Psi; */
 }
@@ -315,6 +348,7 @@ void QuadrotorPropulsion::setVoltage(const hector_uav_msgs::MotorPWM& voltage)
     propulsion_model_->u[7] = voltage.pwm[1] * supply_.voltage[0] / 255.0;
     propulsion_model_->u[8] = voltage.pwm[2] * supply_.voltage[0] / 255.0;
     propulsion_model_->u[9] = voltage.pwm[3] * supply_.voltage[0] / 255.0;
+    // std::cout << "voltages: " << voltage.pwm[0] << " " << voltage.pwm[1] << " " << voltage.pwm[2] << " " << voltage.pwm[3] << std::endl;
   } else {
     propulsion_model_->u[6] = 0.0;
     propulsion_model_->u[7] = 0.0;
@@ -381,13 +415,13 @@ bool QuadrotorPropulsion::processQueue(const ros::Time &timestamp, const ros::Du
   try {
     max = timestamp - delay + tolerance;
   } catch (std::runtime_error &e) {}
-
+  
   do {
 
     while(!command_queue_.empty()) {
       hector_uav_msgs::MotorPWMConstPtr new_motor_voltage = command_queue_.front();
       ros::Time new_time = new_motor_voltage->header.stamp;
-
+      
       if (new_time.isZero() || (new_time >= min && new_time <= max)) {
         setVoltage(*new_motor_voltage);
         command_queue_.pop();
@@ -422,7 +456,7 @@ bool QuadrotorPropulsion::processQueue(const ros::Time &timestamp, const ros::Du
     }
 
   } while(false);
-
+  
   if (new_command) {
       ROS_DEBUG_STREAM_NAMED("quadrotor_propulsion", "Using motor command valid at t = " << last_command_time_.toSec() << "s for simulation step at t = " << timestamp.toSec() << "s (dt = " << (timestamp - last_command_time_).toSec() << "s)");
   }

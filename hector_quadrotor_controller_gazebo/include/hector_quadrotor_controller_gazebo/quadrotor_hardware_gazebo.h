@@ -85,6 +85,8 @@ private:
 
   gazebo::physics::ModelPtr model_;
   gazebo::physics::LinkPtr link_;
+  gazebo::physics::LinkPtr linkMotor2_;
+  std::vector<gazebo::physics::LinkPtr> linkList_;
   gazebo::physics::PhysicsEnginePtr physics_;
 
   gazebo::math::Pose gz_pose_;

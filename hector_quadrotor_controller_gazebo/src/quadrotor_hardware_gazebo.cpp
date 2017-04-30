@@ -63,6 +63,18 @@ bool QuadrotorHardwareSim::initSim(
   link_ = model_->GetLink();
   physics_ = model_->GetWorld()->GetPhysicsEngine();
 
+  linkMotor2_ = model_->GetLink("motor2");
+  linkList_ = model_->GetLinks();
+
+  std::cout << "Link vector size: " << linkList_.size() << std::endl;
+  for (int i=0; i<linkList_.size(); i++) {
+    std::cout << linkList_[i]->GetName() << " " << "" << std::endl;
+  }
+
+
+  std::cout << "------------\n\n----------------" << std::endl;
+  // std::cout <<linkMotor2_->GetName() << std::endl;
+  std::cout << "------------\n\n----------------" << std::endl;
   model_nh.param<std::string>("world_frame", world_frame_, "world");
   model_nh.param<std::string>("base_link_frame", base_link_frame_, "base_link");
 
@@ -194,6 +206,7 @@ void QuadrotorHardwareSim::writeSim(ros::Time time, ros::Duration period)
       if (!result_written) {
         gazebo::math::Vector3 force(wrench.wrench.force.x, wrench.wrench.force.y, wrench.wrench.force.z);
         gazebo::math::Vector3 torque(wrench.wrench.torque.x, wrench.wrench.torque.y, wrench.wrench.torque.z);
+        std::cout << "wrench torque:" << wrench.wrench.force.x << " " << wrench.wrench.force.y << " " << wrench.wrench.force.z << std::endl;
         link_->AddRelativeForce(force);
         link_->AddRelativeTorque(torque - link_->GetInertial()->GetCoG().Cross(force));
       }
