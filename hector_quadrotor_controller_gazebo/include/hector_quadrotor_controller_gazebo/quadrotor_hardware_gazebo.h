@@ -70,6 +70,8 @@ public:
   void motor3Cb(geometry_msgs::Wrench::ConstPtr);
   void motor4Cb(geometry_msgs::Wrench::ConstPtr);
 
+  void applyWrench(gazebo::physics::LinkPtr, geometry_msgs::Wrench::ConstPtr);
+
 private:
   bool enableMotors(bool enable);
 
@@ -90,7 +92,7 @@ private:
 
   gazebo::physics::ModelPtr model_;
   gazebo::physics::LinkPtr link_;
-  gazebo::physics::LinkPtr linkMotor2_;
+  gazebo::physics::LinkPtr linkMotor1_,linkMotor2_,linkMotor3_,linkMotor4_;
   std::vector<gazebo::physics::LinkPtr> linkList_;
   gazebo::physics::PhysicsEnginePtr physics_;
 

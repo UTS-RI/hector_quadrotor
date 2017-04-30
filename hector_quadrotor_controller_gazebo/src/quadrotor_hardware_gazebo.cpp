@@ -67,8 +67,10 @@ bool QuadrotorHardwareSim::initSim(
   Start Hack - Janindu
   */
 
+  linkMotor1_ = model_->GetLink("motor1");
   linkMotor2_ = model_->GetLink("motor2");
-  linkList_ = model_->GetLinks();
+  linkMotor3_ = model_->GetLink("motor3");
+  linkMotor4_ = model_->GetLink("motor4");
 
   std::cout << "Link vector size: " << linkList_.size() << std::endl;
   for (int i=0; i<linkList_.size(); i++) {
@@ -248,18 +250,25 @@ bool QuadrotorHardwareSim::enableMotors(bool enable)
 }
 
 void QuadrotorHardwareSim::motor1Cb(geometry_msgs::Wrench::ConstPtr msg) {
-
+  this->applyWrench(linkMotor1_, msg);
 }
 void QuadrotorHardwareSim::motor2Cb(geometry_msgs::Wrench::ConstPtr msg) {
-  
+  this->applyWrench(linkMotor2_, msg);
 }
 
 void QuadrotorHardwareSim::motor3Cb(geometry_msgs::Wrench::ConstPtr msg) {
-  
+  this->applyWrench(linkMotor3_, msg);  
 }
 
 void QuadrotorHardwareSim::motor4Cb(geometry_msgs::Wrench::ConstPtr msg) {
-  
+  this->applyWrench(linkMotor4_, msg);  
+}
+
+void QuadrotorHardwareSim::applyWrench(gazebo::physics::LinkPtr motorLink, geometry_msgs::Wrench::ConstPtr wrench) {
+  gazebo::math::Vector3 force(wrench->force.x, wrench->force.y,wrench->force.z);
+  gazebo::math::Vector3 torque(wrench->torque.x, wrench->torque.y, wrench->torque.z);
+
+  motorLink->AddRelativeForce(force);
 }
 
 } // namespace hector_quadrotor_controller_gazebo
