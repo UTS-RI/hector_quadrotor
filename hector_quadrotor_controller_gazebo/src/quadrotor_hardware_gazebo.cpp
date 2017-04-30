@@ -63,6 +63,10 @@ bool QuadrotorHardwareSim::initSim(
   link_ = model_->GetLink();
   physics_ = model_->GetWorld()->GetPhysicsEngine();
 
+  /*-------------------------------------------------------
+  Start Hack - Janindu
+  */
+
   linkMotor2_ = model_->GetLink("motor2");
   linkList_ = model_->GetLinks();
 
@@ -75,6 +79,17 @@ bool QuadrotorHardwareSim::initSim(
   std::cout << "------------\n\n----------------" << std::endl;
   std::cout <<linkMotor2_->GetName() << std::endl;
   std::cout << "------------\n\n----------------" << std::endl;
+
+  motor1Sub = model_nh.subscribe("/wrench/pseudomotor1", 10, &QuadrotorHardwareSim::motor1Cb, this);
+  motor2Sub = model_nh.subscribe("/wrench/pseudomotor2", 10, &QuadrotorHardwareSim::motor2Cb, this);
+  motor3Sub = model_nh.subscribe("/wrench/pseudomotor3", 10, &QuadrotorHardwareSim::motor3Cb, this);
+  motor4Sub = model_nh.subscribe("/wrench/pseudomotor4", 10, &QuadrotorHardwareSim::motor4Cb, this);
+
+
+  /*-------------------------------------------------------
+  End Hack - Janindu
+  */
+
   model_nh.param<std::string>("world_frame", world_frame_, "world");
   model_nh.param<std::string>("base_link_frame", base_link_frame_, "base_link");
 
@@ -230,6 +245,21 @@ bool QuadrotorHardwareSim::enableMotors(bool enable)
 {
   motor_status_.running = enable;
   return true;
+}
+
+void QuadrotorHardwareSim::motor1Cb(geometry_msgs::Wrench::ConstPtr msg) {
+
+}
+void QuadrotorHardwareSim::motor2Cb(geometry_msgs::Wrench::ConstPtr msg) {
+  
+}
+
+void QuadrotorHardwareSim::motor3Cb(geometry_msgs::Wrench::ConstPtr msg) {
+  
+}
+
+void QuadrotorHardwareSim::motor4Cb(geometry_msgs::Wrench::ConstPtr msg) {
+  
 }
 
 } // namespace hector_quadrotor_controller_gazebo

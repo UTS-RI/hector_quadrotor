@@ -65,6 +65,11 @@ public:
 
   bool enableMotorsCallback(hector_uav_msgs::EnableMotors::Request &req, hector_uav_msgs::EnableMotors::Response &res);
 
+  void motor1Cb(geometry_msgs::Wrench::ConstPtr);
+  void motor2Cb(geometry_msgs::Wrench::ConstPtr);
+  void motor3Cb(geometry_msgs::Wrench::ConstPtr);
+  void motor4Cb(geometry_msgs::Wrench::ConstPtr);
+
 private:
   bool enableMotors(bool enable);
 
@@ -98,6 +103,8 @@ private:
   ros::Publisher wrench_command_publisher_;
   ros::Publisher motor_command_publisher_;
   ros::ServiceServer enable_motors_server_;
+
+  ros::Subscriber motor1Sub, motor2Sub, motor3Sub, motor4Sub;
 };
 
 } // namespace hector_quadrotor_controller_gazebo
