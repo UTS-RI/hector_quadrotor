@@ -264,7 +264,7 @@ void QuadrotorHardwareSim::motor4Cb(geometry_msgs::Wrench::ConstPtr msg) {
   this->applyWrench(linkMotor4_, msg);  
 }
 
-void QuadrotorHardwareSim::allMotorsCb(geometry_msgs::Wrench::ConstPtr msg) {
+void QuadrotorHardwareSim::allMotorsCb(geometry_msgs::Wrench::ConstPtr wrench) {
   gazebo::math::Vector3 force(wrench->force.x, wrench->force.y,wrench->force.z);
   gazebo::math::Vector3 torque(wrench->torque.x, wrench->torque.y, wrench->torque.z);
 
