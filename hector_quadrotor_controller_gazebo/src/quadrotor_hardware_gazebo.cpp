@@ -88,7 +88,6 @@ bool QuadrotorHardwareSim::initSim(
   motor4Sub = model_nh.subscribe("/wrench/pseudomotor4", 10, &QuadrotorHardwareSim::motor4Cb, this);
   motorAllSub = model_nh.subscribe("/wrench/pseudomotorsAll", 10, &QuadrotorHardwareSim::allMotorsCb);
 
-
   /*-------------------------------------------------------
   End Hack - Janindu
   */
