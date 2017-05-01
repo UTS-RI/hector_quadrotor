@@ -69,6 +69,7 @@ public:
   void motor2Cb(geometry_msgs::Wrench::ConstPtr);
   void motor3Cb(geometry_msgs::Wrench::ConstPtr);
   void motor4Cb(geometry_msgs::Wrench::ConstPtr);
+  void allMotorsCb(geometry_msgs::Wrench::ConstPtr);
 
   void applyWrench(gazebo::physics::LinkPtr, geometry_msgs::Wrench::ConstPtr);
 
@@ -106,7 +107,7 @@ private:
   ros::Publisher motor_command_publisher_;
   ros::ServiceServer enable_motors_server_;
 
-  ros::Subscriber motor1Sub, motor2Sub, motor3Sub, motor4Sub;
+  ros::Subscriber motor1Sub, motor2Sub, motor3Sub, motor4Sub, motorAllSub;
 };
 
 } // namespace hector_quadrotor_controller_gazebo

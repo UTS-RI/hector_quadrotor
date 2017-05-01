@@ -86,6 +86,7 @@ bool QuadrotorHardwareSim::initSim(
   motor2Sub = model_nh.subscribe("/wrench/pseudomotor2", 10, &QuadrotorHardwareSim::motor2Cb, this);
   motor3Sub = model_nh.subscribe("/wrench/pseudomotor3", 10, &QuadrotorHardwareSim::motor3Cb, this);
   motor4Sub = model_nh.subscribe("/wrench/pseudomotor4", 10, &QuadrotorHardwareSim::motor4Cb, this);
+  motorAllSub = model_nh.subscribe("/wrench/pseudomotorsAll", 10, &QuadrotorHardwareSim::allMotorsCb);
 
 
   /*-------------------------------------------------------
@@ -262,6 +263,16 @@ void QuadrotorHardwareSim::motor3Cb(geometry_msgs::Wrench::ConstPtr msg) {
 
 void QuadrotorHardwareSim::motor4Cb(geometry_msgs::Wrench::ConstPtr msg) {
   this->applyWrench(linkMotor4_, msg);  
+}
+
+void QuadrotorHardwareSim::allMotorsCb(geometry_msgs::Wrench::ConstPtr msg) {
+  gazebo::math::Vector3 force(wrench->force.x, wrench->force.y,wrench->force.z);
+  gazebo::math::Vector3 torque(wrench->torque.x, wrench->torque.y, wrench->torque.z);
+
+  linkMotor1_->AddRelativeForce(force);
+  linkMotor2_->AddRelativeForce(force);
+  linkMotor3_->AddRelativeForce(force);
+  linkMotor4_->AddRelativeForce(force);
 }
 
 void QuadrotorHardwareSim::applyWrench(gazebo::physics::LinkPtr motorLink, geometry_msgs::Wrench::ConstPtr wrench) {
