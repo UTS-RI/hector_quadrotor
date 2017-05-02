@@ -18,7 +18,7 @@
         <origin xyz="0 0 0" />
         <inertia ixx="0.01152" ixy="0.0" ixz="0.0" iyy="0.01152" iyz="0.0" izz="0.0218" />
       </inertial>
-
+      <!-- Changing visual and collision properties
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -30,6 +30,19 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <mesh filename="package://hector_quadrotor_description/meshes/quadrotor/quadrotor_base.stl"/>
+        </geometry>
+      </collision>
+      -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.2"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.2"/>
         </geometry>
       </collision>
     </link>
