@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hector_quadrotor_controller_gazebo)
 
 find_package(catkin REQUIRED COMPONENTS
+  tf
   gazebo_ros_control
   hector_quadrotor_interface
 )

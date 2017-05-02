@@ -29,6 +29,9 @@
 #include <hector_quadrotor_controller_gazebo/quadrotor_hardware_gazebo.h>
 
 #include <geometry_msgs/WrenchStamped.h>
+#include "tf/transform_datatypes.h"
+#include "tf/LinearMath/Transform.h"
+#include "tf/tf.h"
 
 namespace hector_quadrotor_controller_gazebo
 {
@@ -268,16 +271,36 @@ void QuadrotorHardwareSim::allMotorsCb(geometry_msgs::Wrench::ConstPtr wrench) {
   gazebo::math::Vector3 force(wrench->force.x, wrench->force.y,wrench->force.z);
   gazebo::math::Vector3 torque(wrench->torque.x, wrench->torque.y, wrench->torque.z);
 
+  tf::Quaternion q;
+  tf::quaternionMsgToTF(pose_.orientation, q);
+  double r,p,y;
+  tf::Matrix3x3 rot(q);
+  rot.getRPY(r,p,y);
+  float k1 = 10;
+  float k2 = 1.0;
+  float f3 = k1*(0.5 - p) + 1;
+  float t3 = k2*(-y);
+
+  gazebo::math::Vector3 forceF3(wrench->force.x, wrench->force.y,f3);
+  gazebo::math::Vector3 torqueF3(wrench->torque.x, wrench->torque.y, t3);
+
   linkMotor1_->AddRelativeForce(force);
   linkMotor2_->AddRelativeForce(force);
-  linkMotor3_->AddRelativeForce(force);
+  // linkMotor3_->AddRelativeForce(force);
   linkMotor4_->AddRelativeForce(force);
+  // link_->AddRelativeForce(force);
+  linkMotor3_->AddRelativeForce(forceF3);
+  linkMotor3_->AddRelativeTorque(torqueF3);
+
+  std::cout << "pitch: " << p << " f3: " << f3 ;
+  std::cout << ", velocity x,y,z: " << twist_.linear.x << "," << twist_.linear.y << "," << twist_.linear.z << std::endl;
+
 }
 
 void QuadrotorHardwareSim::applyWrench(gazebo::physics::LinkPtr motorLink, geometry_msgs::Wrench::ConstPtr wrench) {
   gazebo::math::Vector3 force(wrench->force.x, wrench->force.y,wrench->force.z);
   gazebo::math::Vector3 torque(wrench->torque.x, wrench->torque.y, wrench->torque.z);
-
+  std::cout << pose_.position.x << " " << pose_.position.y << " " << pose_.position.z << std::endl;
   motorLink->AddRelativeForce(force);
 }
 
