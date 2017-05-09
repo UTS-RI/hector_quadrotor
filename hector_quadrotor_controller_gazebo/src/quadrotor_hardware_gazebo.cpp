@@ -290,7 +290,7 @@ void QuadrotorHardwareSim::allMotorsCb(geometry_msgs::Wrench::ConstPtr wrench) {
   linkMotor4_->AddRelativeForce(force);
   // link_->AddRelativeForce(force);
   linkMotor3_->AddRelativeForce(forceF3);
-  linkMotor3_->AddRelativeTorque(torqueF3);
+  // linkMotor3_->AddRelativeTorque(torqueF3);
 
   std::cout << "pitch: " << p << " f3: " << f3 ;
   std::cout << ", velocity x,y,z: " << twist_.linear.x << "," << twist_.linear.y << "," << twist_.linear.z << std::endl;
