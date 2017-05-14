@@ -2,7 +2,7 @@
 
 <launch>
   <include file="$(find hector_gazebo_worlds)/launch/start.launch">
-   <arg name="world" value="$(find hector_quadrotor_gazebo)/worlds/slope.world"/> 
+   <arg name="world" value="$(find hector_quadrotor_gazebo)/worlds/vertical.world"/> 
   </include>
 
 </launch>

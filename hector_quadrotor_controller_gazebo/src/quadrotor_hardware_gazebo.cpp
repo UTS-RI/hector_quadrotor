@@ -278,7 +278,7 @@ void QuadrotorHardwareSim::allMotorsCb(geometry_msgs::Wrench::ConstPtr wrench) {
   rot.getRPY(r,p,y);
   float k1 = 10;
   float k2 = 1.0;
-  float f3 = k1*(0.5 - p) + 1;
+  float f3 = k1*(1.309 - p) + 1;
   float t3 = k2*(-y);
 
   gazebo::math::Vector3 forceF3(wrench->force.x, wrench->force.y,f3);
@@ -290,7 +290,7 @@ void QuadrotorHardwareSim::allMotorsCb(geometry_msgs::Wrench::ConstPtr wrench) {
   linkMotor4_->AddRelativeForce(force);
   // link_->AddRelativeForce(force);
   linkMotor3_->AddRelativeForce(forceF3);
-  // linkMotor3_->AddRelativeTorque(torqueF3);
+  linkMotor3_->AddRelativeTorque(torqueF3);
 
   std::cout << "pitch: " << p << " f3: " << f3 ;
   std::cout << ", velocity x,y,z: " << twist_.linear.x << "," << twist_.linear.y << "," << twist_.linear.z << std::endl;
