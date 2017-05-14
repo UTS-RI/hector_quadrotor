@@ -15,9 +15,9 @@
   <xacro:property name="motor_axel_rad" value="0.01"/>
 
   <xacro:property name="motor_rad" value="${size_factor/8}"/>
-  <xacro:property name="motor_h" value="0.005">
+  <xacro:property name="motor_h" value="0.005"/>
 
-  <xacro:property name="wheel_rad" value="${size_factor}"/>
+  <xacro:property name="wheel_rad" value="${size_factor/2}"/>
   <xacro:property name="wheel_h" value="0.05"/>
 
   <xacro:property name="motor_connector_rad" value="0.005"/>
@@ -35,12 +35,12 @@
   <xacro:property name="motor_axel_in_izz" value="${motor_axel_mass*motor_axel_rad*motor_axel_rad/2}"/>
 
   <xacro:property name="motor_mass" value="0.2"/>
-  <xacro:property name="motor_ixx" value="${(motor_mass/12)*(3*motor_rad*motor*radius + motor_h*motor_h)}"/>
+  <xacro:property name="motor_ixx" value="${(motor_mass/12)*(3*motor_rad*motor_rad + motor_h*motor_h)}"/>
   <xacro:property name="motor_izz" value="${motor_mass*motor_rad*motor_rad/2}"/>
   
   <xacro:property name="wheel_mass" value="0.5"/>
   <xacro:property name="wheel_ixx" value="${(wheel_mass/12)*(6*wheel_rad*wheel_rad + wheel_h*wheel_h)}"/>
-  <xacro:property name="wheel_izz" value="${wheel_mass*wheel_rad*wheel_rad}">
+  <xacro:property name="wheel_izz" value="${wheel_mass*wheel_rad*wheel_rad}"/>
 
   <xacro:property name="motor_connector_mass" value="0.01"/>
   <xacro:property name="motor_connector_ixx" value="${(motor_connector_mass/12)*(3*motor_connector_rad*motor_connector_rad + motor_connector_h*motor_connector_h)}"/>
@@ -112,13 +112,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${motor_axel_rad}" length="motor_axel_length"/>
+          <cylinder radius="${motor_axel_rad}" length="${motor_axel_length}"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${motor_axel_rad}" length="motor_axel_length"/>
+          <cylinder radius="${motor_axel_rad}" length="${motor_axel_length}"/>
         </geometry>
       </collision>
       <inertial>
@@ -140,13 +140,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${motor_axel_rad}" length="motor_axel_length"/>
+          <cylinder radius="${motor_axel_rad}" length="${motor_axel_length}"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder radius="${motor_axel_rad}" length="motor_axel_length"/>
+          <cylinder radius="${motor_axel_rad}" length="${motor_axel_length}"/>
         </geometry>
       </collision>
       <inertial>
@@ -179,6 +179,7 @@
       </collision>
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${motor_mass}"/>
         <inertia
           ixx="${motor_ixx}" ixy="0.0" ixz="0.0"
           iyy="${motor_ixx}" iyz="0.0"
@@ -206,6 +207,7 @@
       </collision>
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${motor_mass}"/>
         <inertia
           ixx="${motor_ixx}" ixy="0.0" ixz="0.0"
           iyy="${motor_ixx}" iyz="0.0"
@@ -233,6 +235,7 @@
       </collision>
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${motor_mass}"/>
         <inertia
           ixx="${motor_ixx}" ixy="0.0" ixz="0.0"
           iyy="${motor_ixx}" iyz="0.0"
@@ -260,6 +263,7 @@
       </collision>
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${motor_mass}"/>
         <inertia
           ixx="${motor_ixx}" ixy="0.0" ixz="0.0"
           iyy="${motor_ixx}" iyz="0.0"
@@ -332,13 +336,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </collision>
       <inertial>
@@ -360,13 +364,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </collision>
       <inertial>
@@ -388,13 +392,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </collision>
       <inertial>
@@ -416,13 +420,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder radius="motor_connector_rad" length="motor_connector_h"/>
+          <cylinder radius="${motor_connector_rad}" length="${motor_connector_h}"/>
         </geometry>
       </collision>
       <inertial>
@@ -475,7 +479,7 @@
     <joint name="axel_wheel2_joint" type="continuous">
       <origin xyz="0 0 ${-wheel_axel_length/2}" rpy="0 0 0"/>
       <parent link="wheel_axel"/>
-      <childl link="wheel2"/>
+      <child link="wheel2"/>
     </joint>
 
     <!-- Motor axel 1 to motor con 1 -->
@@ -487,28 +491,28 @@
 
     <!-- Motor axel 1 to motor con 3 -->
     <joint name="axel1_motor_con3_joint" type="fixed">
-      <origin xyz="${motor_rad-(motor_axel_length/2)}" rpy="${pi/2} 0 0"/>
+      <origin xyz="0 0 ${motor_rad-(motor_axel_length/2)}" rpy="${pi/2} 0 0"/>
       <parent link="motor_axel_1"/>
       <child link="mc3"/>
     </joint>
 
     <!-- Motor axel 2 to motor con 2 -->
     <joint name="axel2_motor_con2_joint" type="fixed">
-      <origin xyz="0 0 ${(motor_axel_length/2)-motor_rad}" rpy="${pi/2} 0 0"/>
+      <origin xyz="0 0 ${(motor_axel_length/2)-motor_rad}" rpy="${-pi/2} 0 0"/>
       <parent link="motor_axel_2"/>
       <child link="mc2"/>
     </joint>
 
     <!-- Motor axel 2 to motor con 4 -->
     <joint name="axel2_motor_con4_joint" type="fixed">
-      <origin xyz="0 0 ${motor_rad-(motor_axel_length/2)}" rpy="${pi/2} 0 0"/>
+      <origin xyz="0 0 ${motor_rad-(motor_axel_length/2)}" rpy="${-pi/2} 0 0"/>
       <parent link="motor_axel_2"/>
       <child link="mc4"/>
     </joint>
 
     <!-- Motor con 1 to motor 1 -->
     <joint name="mc1_motor1_joint" type="revolute">
-      <origin xyz="0 0 motor_connector_h/2" rpy="0 0 0"/>
+      <origin xyz="0 0 ${motor_connector_h/2}" rpy="0 0 0"/>
       <parent link="mc1"/>
       <child link="motor1"/>
       <limit effort="1000.0" velocity="0.0" lower="0.0" upper="0.0"/>
@@ -516,7 +520,7 @@
 
     <!-- Motor con 2 to motor 2 -->
     <joint name="mc2_motor2_joint" type="revolute">
-      <origin xyz="0 0 motor_connector_h/2" rpy="0 0 0"/>
+      <origin xyz="0 0 ${motor_connector_h/2}" rpy="0 0 0"/>
       <parent link="mc2"/>
       <child link="motor2"/>
       <limit effort="1000.0" velocity="0.0" lower="0.0" upper="0.0"/>
@@ -524,17 +528,17 @@
 
     <!-- Motor con 3 to motor 3 -->
     <joint name="mc3_motor3_joint" type="revolute">
-      <origin xyz="0 0 motor_connector_h/2" rpy="0 0 0"/>
+      <origin xyz="0 0 ${motor_connector_h/2}" rpy="0 0 0"/>
       <parent link="mc3"/>
       <child link="motor3"/>
       <limit effort="1000.0" velocity="0.0" lower="0.0" upper="0.0"/>
     </joint>
 
     <!-- Motor con 4 to motor 4 -->
-    <joint name="mc3_motor3_joint" type="revolute">
-      <origin xyz="0 0 motor_connector_h/2" rpy="0 0 0"/>
-      <parent link="mc3"/>
-      <child link="motor3"/>
+    <joint name="mc4_motor4_joint" type="revolute">
+      <origin xyz="0 0 ${motor_connector_h/2}" rpy="0 0 0"/>
+      <parent link="mc4"/>
+      <child link="motor4"/>
       <limit effort="1000.0" velocity="0.0" lower="0.0" upper="0.0"/>
     </joint>
 
