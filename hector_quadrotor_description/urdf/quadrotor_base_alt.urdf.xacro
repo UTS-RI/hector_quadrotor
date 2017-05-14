@@ -21,7 +21,7 @@
   <xacro:property name="wheel_h" value="0.05"/>
 
   <xacro:property name="motor_connector_rad" value="0.005"/>
-  <xacro:property name="motor_connector_h" value"0.05"/>
+  <xacro:property name="motor_connector_h" value="0.05"/>
 
   <xacro:property name="base_mass" value="0.5"/>
   <xacro:property name="base_inertia" value="${2*base_mass*base_radius*base_radius/5}"/>
@@ -56,13 +56,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${base_radius}">
+          <sphere radius="${base_radius}"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${base_radius}">
+          <sphere radius="${base_radius}"/>
         </geometry>
       </collision>
       <inertial>
@@ -109,7 +109,7 @@
 
     <!-- Axis 1 to rotors -->
     <link name="motor_axel_1">
-      <vidual>
+      <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_axel_rad}" length="motor_axel_length"/>
@@ -137,7 +137,7 @@
 
     <!-- Axis 2 to rotors -->
     <link name="motor_axel_2">
-      <vidual>
+      <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_axel_rad}" length="motor_axel_length"/>
@@ -166,13 +166,13 @@
     <!-- Motor 1 -->
     <link name="motor1">
       <visual>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
       </visual>
       <collision>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
@@ -193,13 +193,13 @@
     <!-- Motor 2 -->
     <link name="motor2">
       <visual>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
       </visual>
       <collision>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
@@ -220,13 +220,13 @@
     <!-- Motor 3 -->
     <link name="motor3">
       <visual>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
       </visual>
       <collision>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
@@ -247,13 +247,13 @@
     <!-- Motor 4 -->
     <link name="motor4">
       <visual>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
       </visual>
       <collision>
-        <origin=xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="${motor_rad}" length="${motor_h}"/>
         </geometry>
@@ -439,7 +439,7 @@
       <material>Gazebo/Black</material>
     </gazebo>
 
-    <!-- Links End>
+    <!-- Links End -->
 
     <!-- Joints Start-->
 
@@ -458,7 +458,7 @@
     </joint>
 
     <!-- Base link to motor axel 2 -->
-    <joint name="base_motor_axel2_joint" type="fixed"/>
+    <joint name="base_motor_axel2_joint" type="fixed">
       <origin xyz="0 0 ${base_radius/2}" rpy="${pi/2} 0 ${pi/4}"/>
       <parent link="base_link"/>
       <child link="motor_axel_2"/>
