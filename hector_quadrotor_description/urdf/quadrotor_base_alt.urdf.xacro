@@ -473,6 +473,8 @@
       <origin xyz="0 0 ${wheel_axel_length/2}" rpy="0 0 0"/>
       <parent link="wheel_axel"/>
       <child link="wheel1"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0"/>
     </joint>
 
     <!-- Wheel axel to wheel 2 -->
@@ -480,6 +482,8 @@
       <origin xyz="0 0 ${-wheel_axel_length/2}" rpy="0 0 0"/>
       <parent link="wheel_axel"/>
       <child link="wheel2"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0"/>
     </joint>
 
     <!-- Motor axel 1 to motor con 1 -->
